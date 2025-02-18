@@ -17,30 +17,26 @@ public class EjercicioArrays {
         int maxNota = 0;
         int minNota = 0;
         int indMaxNota, indMinNota;
-        int postEval;
 		double[] calif;
         //Genera notas random entre 1 y 10
         for(int i=0; i < control.length; i++){
             control[i] = (int)(Math.random()*11);
         }
-        //buscamos al mayor
-        postEval = 11;
-        for(int i=0; i<control.length; i++){
-            int preEval = control[i];
-            if (preEval < postEval){
-                minNota = preEval;
-                postEval = control[i];
+        //buscamos al mayor y menor
+        //variable auxiliar que almacena la nota mas baja
+        for(int i = 0; i<control.length; i++){
+            if(i == 0){
+                minNota = control[i];
+                maxNota = control[i];
+            }
+            //Comprobamos valor a valor
+            if (control[i] < minNota){
+                minNota = control[i];
+            }else if (control[i] > maxNota){
+                maxNota = control[i];
             }
         }
-        //buscamos al menor
-        postEval = 0;
-        for(int i=0; i<control.length; i++){
-            int preEval = control[i];
-            if (preEval > postEval){
-                maxNota = preEval;
-                postEval = control[i];
-            }
-        }
+
         //creamos una lista de los alumnos de la clase
         listaClase = new int[numAlumnos];
         for (int i = 0; i < numAlumnos; i++){
@@ -52,14 +48,14 @@ public class EjercicioArrays {
         indMaxNota = notas.indexOf(maxNota) + 1;
 
         //Comprobamos el resultado del ejercicio   
-        System.out.println("Mínimo es: " + minNota);
-        System.out.println("Máximo es: " + maxNota);
-        System.out.println("Indice del mínimo es : " + indMinNota);
-        System.out.println("Indice del máximo es : " + indMaxNota);
-        System.out.println("Lista de clase :" + Arrays.toString(listaClase));
-        System.out.println("Array de Notas :" + notas);
+        System.out.println("Mínimo es: " + minNota +
+                            "\nMáximo es: " + maxNota +
+                            "\nIndice del mínimo es : " + indMinNota +
+                            "\nIndice del máximo es : " + indMaxNota +
+                            "\nLista de clase :" + Arrays.toString(listaClase) +
+                            "\nArray de Notas :" + notas);
         
-        //creamos el array de notas "practicas"
+        //creamos el array de notas "practicas" y se llena de notas de valor aleatorio
         practicas = new int[numAlumnos];
         for(int i=0; i < practicas.length; i++){
             practicas[i] = (int)(Math.random()*11);
@@ -115,26 +111,26 @@ public class EjercicioArrays {
         System.out.println("Relación de suspensos por nº de lista: " 
                 + Arrays.toString(suspensos));
         //Resumen de aprobados y suspensos
-        int i = 0;
-        int x = 0;
         int[] a = new int[countAprobados];
         int[] s = new int[countSuspensos];
-        while(i < aprobados.length){
-            if(aprobados[i] != 0){
-                a[x] = aprobados[i];
-                i++;
-                x++;
-            }else{ i++; }
-        }
         
-        i = x = 0;
-        while(i < suspensos.length){
-            if(suspensos[i] != 0){
-                s[x] = suspensos[i];
-                i++;
+        //Elimina las celdas vacias del array
+        for(int i = 0, x = 0; i<aprobados.length; i++){
+            if (aprobados[i] != 0){
+                a[x] = aprobados[i];
                 x++;
-            }else{ i++; }
+            }
+
         }
+        //Elimina las celdas vacias del array
+        for(int i = 0, x = 0; i<suspensos.length; i++){
+            if (suspensos[i] != 0){
+                s[x] = suspensos[i];
+                x++;
+            }
+
+        }
+
         System.out.println("Resumen  de aprobados por nº de lista: " 
                 + Arrays.toString(a));
         System.out.println("Resumen  de aprobados por nº de lista: " 
